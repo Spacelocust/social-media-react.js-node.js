@@ -17,7 +17,7 @@ export const signin = async (req, res) => {
         const existingUser = await connexionUser(client).findOne({ email });
 
         if (!existingUser) return res.status(404).json({ message: "l'utilisateur n'éxiste pas" });
-        const checkPassword = bcrypt.compare(password, existingUser.password);
+        const checkPassword = bcrypt.compare(password.toString(), (existingUser.password).toString());
 
         if(!checkPassword) return res.status(400).json({ message: 'identifiants invalident'});
         const token = jwt.sign({ id: existingUser._id, email: existingUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -42,7 +42,7 @@ export const signup = async (req, res) => {
 
         if(password !== confirmPassword) return res.status(400).json({ message: "Les mots de passe ne sont pas identiques" });
 
-        const hashPassword = bcrypt.hash(password.toString(), 12);
+        const hashPassword = bcrypt.hash(password, 12);
 
         const result = await connexionUser(client).insertOne({ email: email, password: hashPassword, lastName: lastName, firstName: firstName, name: `${firstName} ${lastName}` });
         const token = jwt.sign({ id: result.ops[0]._id, email: result.ops[0].email }, process.env.JWT_SECRET, { expiresIn: '1h' });

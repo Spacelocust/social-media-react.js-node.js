@@ -12,7 +12,8 @@ dotenv.config();
 app.use(bodyParser.json({ limit: "30mb", extend: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extend: true }));
 app.use(cors({
-    origin: "*",
+    "origin": "*",
+    "Access-Control-Max-Age": 1,
 }));
 
 app.use('/posts', postRoutes);

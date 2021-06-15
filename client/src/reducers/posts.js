@@ -6,6 +6,8 @@ export default (posts = [], action) => {
             return action.payload;
         case ACTION_TYPES.UPDATE:
             return posts.map((p) => p._id === action.payload._id ? action.payload : posts);
+        case ACTION_TYPES.LIKE:
+            return posts.map((p) => p._id === action.payload ? action.payload : posts);
         case ACTION_TYPES.DELETE:
             return posts.filter((p) => p._id !== action.payload);
         case ACTION_TYPES.CREATE:

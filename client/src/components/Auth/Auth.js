@@ -76,10 +76,10 @@ const Auth = () => {
                     <Grid container spacing={2}>
                         {
                             isSignup && (
-                                <>
+                                <React.Fragment>
                                     <Input name="firstName" label="Prénom" handleChange={handleChange} type="text" half />
                                     <Input name="lastName" label="Nom" handleChange={handleChange} type="text" half />
-                                </>
+                                </React.Fragment>
                             )
                         }
                         <Input name="email" label="Adresse mail" type="email" handleChange={handleChange} />
